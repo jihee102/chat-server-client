@@ -4,6 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 public class UserListPane extends JPanel implements UserStatusListener {
     private final ChatClient client;
@@ -41,7 +42,7 @@ public class UserListPane extends JPanel implements UserStatusListener {
         });
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         ChatClient client = new ChatClient("localhost", 1337);
 
         UserListPane userListPane = new UserListPane(client);
@@ -52,6 +53,19 @@ public class UserListPane extends JPanel implements UserStatusListener {
         frame.getContentPane().add(userListPane, BorderLayout.CENTER);
         frame.setVisible(true);
 
+
+        if(!client.connect()){
+            System.err.println("Connection failed.");
+        }else {
+            System.out.println("Connection successful");
+        }
+
+        if(!client.login("Jihee")){
+            System.err.println("login failed.");
+        }else{
+            System.out.println("login successful");
+
+        }
 
 
     }

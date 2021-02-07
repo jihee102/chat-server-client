@@ -109,6 +109,7 @@ public class ChatClient {
         String[] resArr = response.split(" ");
         if(resArr[0].equals("200")){
             startMessageReader();
+            this.username = username;
             return true;
         }
         return false;
