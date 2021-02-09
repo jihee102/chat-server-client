@@ -19,6 +19,8 @@ public class GroupListPane extends JPanel implements GroupListener {
         groupListModel = new DefaultListModel<>();
         groupListUI = new JList<>(groupListModel);
         setLayout(new BorderLayout());
+        add(new JLabel("Group List"), BorderLayout.NORTH);
+
         add(new JScrollPane(groupListUI), BorderLayout.CENTER);
 
         groupListUI.addMouseListener(new MouseAdapter() {

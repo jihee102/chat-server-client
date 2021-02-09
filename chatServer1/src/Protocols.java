@@ -4,6 +4,8 @@
 public class Protocols {
     final String ONLINE = "ONLINE";
     final String OFFLINE = "OFFLINE";
+    final String USERLIST = "USERLIST";
+    final String GROUPLIST= "GROUPLIST";
     final String protDT = "::";
     final String JOINGRP = "JOINGRP";
     final String EXITGRP = "EXITGRP";

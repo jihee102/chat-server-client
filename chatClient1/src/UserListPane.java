@@ -16,8 +16,11 @@ public class UserListPane extends JPanel implements UserStatusListener {
         this.client.addUserStatusListener(this);
 
         userListModel = new DefaultListModel<>();
+
+
         userListUI = new JList<>(userListModel);
         setLayout(new BorderLayout());
+        add(new JLabel("Online User List"), BorderLayout.NORTH);
         add(new JScrollPane(userListUI), BorderLayout.CENTER);
 
         userListUI.addMouseListener(new MouseAdapter() {
@@ -42,33 +45,6 @@ public class UserListPane extends JPanel implements UserStatusListener {
         });
     }
 
-    public static void main(String[] args) throws IOException {
-        ChatClient client = new ChatClient("localhost", 1337);
-
-        UserListPane userListPane = new UserListPane(client);
-        JFrame frame = new JFrame("User List");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400,600);
-
-        frame.getContentPane().add(userListPane, BorderLayout.CENTER);
-        frame.setVisible(true);
-
-
-        if(!client.connect()){
-            System.err.println("Connection failed.");
-        }else {
-            System.out.println("Connection successful");
-        }
-
-        if(!client.login("Jihee")){
-            System.err.println("login failed.");
-        }else{
-            System.out.println("login successful");
-
-        }
-
-
-    }
 
     @Override
     public void online(String user) {

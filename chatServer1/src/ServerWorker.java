@@ -131,10 +131,18 @@ public class ServerWorker extends Thread {
                 msg += worker.getUsername() + pt.protDT;
             }
         }
-        sendMsgToClientWithCode(pt.ok_200, msg);
+        sendMsgToClientWithCode(pt.USERLIST, msg);
 
     }
 
+    private void sendGroupList(){
+        String msg = "";
+        for(String group: groupSet){
+            msg+= group+pt.protDT;
+        }
+        sendMsgToClientWithCode(pt.GROUPLIST, msg);
+
+    }
 
     /**
      * Private Message
@@ -304,6 +312,12 @@ public class ServerWorker extends Thread {
         sendMessageToUsers(msg);
         startPingPong();
 
+        // after login
+        // send current online user list
+        sendOnlineUserList();
+
+        // send current group list
+        sendGroupList();
 
     }
 

@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ScheduledExecutorService;
 
 
 public class ChatClient {
@@ -135,6 +136,12 @@ public class ChatClient {
                 String[] reqArr = content.split(pt.protDT);
 
                 switch (command){
+                    case "USERLIST":
+                        loadOnlineUsers(reqArr);
+                        break;
+                    case "GROUPLIST":
+                        loadGroups(reqArr);
+                        break;
                     case "ONLINE":
                         handleOnlineUser(reqArr);
                         break;
@@ -161,6 +168,41 @@ public class ChatClient {
 
         }catch (IOException e){
             e.printStackTrace();
+        }
+    }
+
+    private void loadGroups(String[] reqArr) {
+
+        // if groupListeners is not added, which means the the panel is not loaded yet, then wait 100ms.
+        if (groupListeners.size() ==0 && reqArr.length!=0){
+            try {
+                Thread.sleep(1 * 100);
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+            }
+        }
+        for (String group: reqArr){
+            for(GroupListener groupListener : groupListeners){
+                groupListener.addGroup(group);
+            }
+        }
+    }
+
+    private void loadOnlineUsers(String[] reqArr) {
+
+        // if userStatusListener is not added, which means the the panel is not loaded yet, then wait 100ms.
+        if (userStatusListeners.size() ==0 && reqArr.length!=0){
+            try {
+                Thread.sleep(1 * 100);
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+            }
+        }
+
+        for (String user : reqArr){
+            for(UserStatusListener listener: userStatusListeners){
+                listener.online(user);
+            }
         }
     }
 
