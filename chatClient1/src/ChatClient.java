@@ -290,6 +290,10 @@ public class ChatClient {
         sendMsgToServerWithCode(pt.GROUPMSG, msg);
     }
 
+    public void sendCreateGroup(String groupName){
+        sendMsgToServerWithCode(pt.CGROUP, groupName);
+    }
+
     public void sendJoinGroup(String group){
         sendMsgToServerWithCode(pt.JOINGRP, group);
     }

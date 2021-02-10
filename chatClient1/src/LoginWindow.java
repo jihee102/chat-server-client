@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -41,21 +42,41 @@ public class LoginWindow extends JFrame{
     }
 
     private void makeGUI(){
-        UserListPane listPane = new UserListPane(client);
-        listPane.setBounds(0,0, 250, 250);
-
-        GroupListPane groupListPane = new GroupListPane(client);
-        groupListPane.setBounds(250,0,250,250);
-
-
         JFrame frame = new JFrame("Main Chat");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(null);
-        frame.setSize(750,750);
+        frame.setSize(800,800);
 
-        
-        frame.add(listPane);
-        frame.add(groupListPane);
+        UserListPane listPane = new UserListPane(client);
+        GroupListPane groupListPane = new GroupListPane(client);
+
+        GridBagLayout gridLayout = new GridBagLayout();
+        frame.setLayout(gridLayout);
+
+
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx =0;
+        c.gridy = 1;
+        c.gridwidth=2;
+        c.ipady= frame.getHeight()/2-100;
+        frame.add(new MessagePane(client, "Broad Chat", "Broad"), c);
+
+        GridBagConstraints c1 = new GridBagConstraints();
+        c1.fill = GridBagConstraints.HORIZONTAL;
+        c1.gridx =0;
+        c1.gridy = 0;
+        c1.weightx = 0.5;
+        c1.ipady= frame.getHeight()/2-100;
+        frame.add(listPane, c1);
+
+        GridBagConstraints c2 = new GridBagConstraints();
+        c2.fill = GridBagConstraints.HORIZONTAL;
+        c2.gridx =1;
+        c2.gridy = 0;
+        c2.weightx = 0.5;
+        c2.ipady= frame.getHeight()/2-100 -30;
+        frame.add(groupListPane, c2);
+
         frame.setVisible(true);
 
 

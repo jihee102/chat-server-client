@@ -137,7 +137,7 @@ public class ServerWorker extends Thread {
 
     private void sendGroupList(){
         String msg = "";
-        for(String group: groupSet){
+        for(String group: server.getGroups()){
             msg+= group+pt.protDT;
         }
         sendMsgToClientWithCode(pt.GROUPLIST, msg);
